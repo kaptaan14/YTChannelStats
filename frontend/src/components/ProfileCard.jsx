@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import { setTopVideos } from "../state";
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 export default function ProfileCard() {
   const [loading,setLoading] = useState(false); 
@@ -23,7 +25,7 @@ export default function ProfileCard() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`/api/youtube/uploads?upload_id=${uploads}`);  //setting_upload_id and getting top 10 videos
+      const response = await fetch(`${apiUrl}/api/youtube/uploads?upload_id=${uploads}`);  //setting_upload_id and getting top 10 videos
       const data = await response.json();
       dispatch(setTopVideos(data));
       navigate('/top10videos')

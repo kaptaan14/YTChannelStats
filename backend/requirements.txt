@@ -2,3 +2,4 @@ Flask==3.0.3
 google-api-python-client==2.142.0
 pandas==2.2.2
 python-dotenv==1.0.1
+flask-cors==4.0.1

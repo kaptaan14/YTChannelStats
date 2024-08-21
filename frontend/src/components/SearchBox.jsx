@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import { setChannelData } from '../state/index.js';
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader.jsx";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function SearchBox() {
   const [query, setQuery] = useState("");
@@ -18,7 +20,7 @@ export default function SearchBox() {
     setQuery("")
     setLoading(true);
     try {
-      const response = await fetch(`/api/youtube?channel_name=${query}`);  //fetching channel data
+      const response = await fetch(`${apiUrl}/api/youtube?channel_name=${query}`);  //fetching channel data
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to fetch channel data');

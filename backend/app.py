@@ -2,9 +2,12 @@ from flask import Flask,jsonify,request
 from config import Config
 from googleapiclient.discovery import build
 import pandas as pd
+from flask_cors import CORS 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+CORS(app)
 
 youtube = build('youtube','v3',developerKey = Config.API_KEY)
 
