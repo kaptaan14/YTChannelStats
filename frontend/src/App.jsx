@@ -1,5 +1,4 @@
 import Footer from "./components/Footer";
-import Loader from "./components/Loader";
 import ProfileCard from "./components/ProfileCard";
 import SearchBox from "./components/SearchBox";
 import VideoItem from "./components/VideoItems";
