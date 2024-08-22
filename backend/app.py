@@ -90,9 +90,9 @@ def get_video_details(youtube,video_ids):
                                Thumbnail = videos['snippet']['thumbnails']['high']['url'],
                                Video_id = videos['id'],
                                Publish_date=videos['snippet']['publishedAt'],
-                                Views= videos['statistics']['viewCount'],
-                                Likes= videos['statistics']['likeCount'],
-                                Comments= videos['statistics']['commentCount'])
+                               Views= videos['statistics'].get('viewCount', 0),
+                               Likes= videos['statistics'].get('likeCount', 0),
+                               Comments= videos['statistics'].get('commentCount', 0))
 
             all_videos_stats.append(video_stats)
 
@@ -118,7 +118,7 @@ def youtube_data():
         return jsonify(channel_stats)
     
     except ValueError as ve:
-        return jsonify({"error": str(ve)}), 404
+        return jsonify({"error": str(ve)}), 404    #error
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred"}), 500
 
@@ -138,14 +138,14 @@ def getVideoStats():
         video_data = get_video_details(youtube, videoIds)
         video_data = pd.DataFrame(video_data)
         video_data['Publish_date'] = pd.to_datetime(video_data['Publish_date']).dt.date
-        video_data['Views'] = pd.to_numeric(video_data['Views'])
-        video_data['Likes'] = pd.to_numeric(video_data['Likes'])
-        video_data['Comments'] = pd.to_numeric(video_data['Comments'])
+        video_data['Likes'] = pd.to_numeric(video_data['Likes'], errors='coerce').fillna(0)
+        video_data['Views'] = pd.to_numeric(video_data['Views'], errors='coerce').fillna(0)
+        video_data['Comments'] = pd.to_numeric(video_data['Comments'], errors='coerce').fillna(0)
         top_videos = video_data.sort_values(by='Views', ascending=False).head(10).to_dict(orient='records')
         return jsonify(top_videos)
     
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 500  #error
 
 
 

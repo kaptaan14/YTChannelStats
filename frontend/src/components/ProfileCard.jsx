@@ -27,9 +27,10 @@ export default function ProfileCard() {
     try {
       const response = await fetch(`${apiUrl}/api/youtube/uploads?upload_id=${uploads}`);  //setting_upload_id and getting top 10 videos
       const data = await response.json();
+      console.log(data)
       dispatch(setTopVideos(data));
       navigate('/top10videos')
-    } catch (error) {
+    } catch (error) { 
       console.error("Error fetching additional videos:", error);
     } finally {
       setLoading(false);
