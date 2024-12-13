@@ -11,6 +11,7 @@ function App() {
     <>
       <Router>
         <Routes>
+          
           <Route path="/" element={<SearchBox />} />
           <Route path="/profile" element={<ProfileCard />} />
           <Route path="/top10videos" element={<VideoItem />} />

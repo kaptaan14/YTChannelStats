@@ -14,7 +14,7 @@ export default function VideoItem() {
 
   if (!Array.isArray(topVideos)  || topVideos.length <=0) {
     return (
-      <p className="flex font-bold text-3xl text-center justify-center bg-gray-800 items-center min-h-screen text-white">
+      <p className="flex font-bold text-3xl text-center justify-center  items-center min-h-screen text-white">
         No Videos Found
       </p>
     );
@@ -23,7 +23,7 @@ export default function VideoItem() {
   return (
     <>
     {topVideos && (
-    <div className="bg-gray-800 p-3">
+    <div className=" p-3">
       <div className="w-full max-w-5xl mx-auto pt-5 mb-10">
         <h1 className="text-center text-4xl mb-10 italic font-medium text-blue-600">
           #Top10Videos

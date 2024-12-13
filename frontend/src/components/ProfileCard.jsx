@@ -39,14 +39,14 @@ export default function ProfileCard() {
 
   if(loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-800">
+      <div className="flex items-center justify-center min-h-screen ">
       <Loader />
     </div>
     )
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-800 p-4">
+    <div className="flex items-center justify-center min-h-screen  p-4">
       <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
         {/* Profile Image */}
         <div className="w-full h-64 overflow-hidden">

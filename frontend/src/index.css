@@ -2,5 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
+body,html {
+  background-repeat: no-repeat; /* Prevent repeating */
+  background-size: cover; /* Optional: ensures the background covers the entire element */
+  background-position: center;
+  @apply bg-grad;
+}
