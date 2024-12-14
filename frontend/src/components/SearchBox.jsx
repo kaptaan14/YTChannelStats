@@ -4,6 +4,7 @@ import { setChannelData } from "../state/index.js";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader.jsx";
 import { toast } from "react-toastify";
+import { FaYoutube } from "react-icons/fa";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -45,10 +46,16 @@ export default function SearchBox() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen  p-4">
-      <div className="bg-white  py-10 min-w-screen sm:min-w-[40rem] md:min-w-[60rem] px-10 rounded-3xl">
-        <h1 className="text-5xl pb-10 font-bold text-center mb-6 mt-4 sm:mt-10 bg-gradient-to-br from-[#224D88] via-[#935893] to-[#E896B8] bg-clip-text text-transparent ">
-          YouTube Channel <br /> Analyser
-        </h1>
+      <div className="bg-[#fbfbfd] py-10 min-w-screen sm:min-w-[40rem] md:min-w-[60rem] px-10 rounded-3xl">
+        <div className="text-5xl flex flex-col items-center  justify-center pb-10 font-bold text-center mb-6 mt-4 sm:mt-10 bg-gradient-to-br from-[#224D88] via-[#935893] to-[#E896B8] bg-clip-text text-transparent ">
+          <div className="flex w-48 flex-row items-center justify-center">
+            <img
+              src="./logo.png"
+              alt=""
+            />
+          </div>
+          <h1> Channel Analyser</h1>
+        </div>
         <form
           className="flex flex-col items-center w-full sm:px-10"
           onSubmit={handleSubmit}

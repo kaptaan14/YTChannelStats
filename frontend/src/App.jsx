@@ -8,18 +8,16 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Router>
         <Routes>
-          
           <Route path="/" element={<SearchBox />} />
           <Route path="/profile" element={<ProfileCard />} />
           <Route path="/top10videos" element={<VideoItem />} />
         </Routes>
         <ToastContainer />
-        <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 

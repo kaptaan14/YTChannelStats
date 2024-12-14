@@ -12,6 +12,7 @@ export default {
           middle: "#FFAAAA", // Lighter red (smooth transition)
           end: "#282828",
         },
+        grey: "rgba(245,245,247,1)",
       },
     },
   },
