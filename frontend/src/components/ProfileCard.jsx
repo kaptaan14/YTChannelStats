@@ -1,44 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
-import { useNavigate } from "react-router-dom";
-import { setTopVideos } from "../state";
+import { useNavigate, useParams } from "react-router-dom";
+import { setChannelData, setTopVideos } from "../state";
 import { BsInfoCircle } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function ProfileCard() {
   const [loading, setLoading] = useState(false);
   const profileData = useSelector((state) => state.channel.data);
-  const uploads = useSelector((state) => state.channel.data.Uploads);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  if (!profileData) {
-    return (
-      <p className="flex font-bold text-3xl text-center justify-center bg-gray-800 items-center min-h-screen text-white">
-        No profile data
-      </p>
-    );
-  }
+  const { channelName } = useParams();
 
-  const handleTopVideos = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${apiUrl}/api/youtube/uploads?upload_id=${uploads}`
-      ); //setting_upload_id and getting top 10 videos
-      const data = await response.json();
-      console.log(data);
-      dispatch(setTopVideos(data));
-      navigate("/top10videos");
-    } catch (error) {
-      console.error("Error fetching additional videos:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleTopVideos = () => {
+    const uploadId = profileData.Uploads;
+    navigate(`/${channelName}/top10videos/${uploadId}`);
   };
+
+  useEffect(() => {
+    const fetchChannelData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `${apiUrl}/api/youtube?channel_name=${channelName}`
+        );
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to fetch channel data");
+        }
+        const data = await response.json();
+        dispatch(setChannelData(data));
+      } catch (error) {
+        toast.error(error.message || "Error fetching channel data");
+        navigate("/");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (channelName) {
+      fetchChannelData();
+    }
+  }, [channelName]);
 
   if (loading) {
     return (
@@ -46,6 +53,12 @@ export default function ProfileCard() {
         <Loader />
       </div>
     );
+  }
+
+  if(!profileData){
+    return (
+      <h1>No Profile Found</h1>
+    )
   }
 
   return (
@@ -61,7 +74,7 @@ export default function ProfileCard() {
           </div>
         </div>
 
-        <div className="w-48 h-48  rounded-full overflow-hidden cursor-pointer transition-transform duration-1000 transform hover:rotate-[360deg]">
+        <div className="w-48 h-48  rounded-full overflow-hidden cursor-pointer transition-transform duration-500 transform hover:scale-[1.1]">
           <img
             className="w-full h-full object-cover"
             src={profileData.Profile}

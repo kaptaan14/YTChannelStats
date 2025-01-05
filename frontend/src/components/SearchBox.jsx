@@ -1,67 +1,33 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setChannelData } from "../state/index.js";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader.jsx";
-import { toast } from "react-toastify";
-import { FaYoutube } from "react-icons/fa";
-
-const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function SearchBox() {
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    setQuery("");
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${apiUrl}/api/youtube?channel_name=${query}`
-      ); //fetching channel data
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to fetch channel data");
-      }
-      const data = await response.json();
-      dispatch(setChannelData(data));
-      navigate("/profile");
-    } catch (error) {
-      toast.error(error.message || "Error fetching channel data");
-    } finally {
-      setLoading(false);
+    if (query) {
+      navigate(`/profile/${query}`);
     }
   };
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen ">
-        <Loader />
-      </div>
-    );
-  }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen  p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen p-1 sm:p-4">
       <div className="bg-[#fbfbfd] py-10 min-w-screen sm:min-w-[40rem] md:min-w-[60rem] px-10 rounded-3xl">
         <div className="text-5xl flex flex-col items-center  justify-center pb-10 font-bold text-center mb-6 mt-4 sm:mt-10 bg-gradient-to-br from-[#224D88] via-[#935893] to-[#E896B8] bg-clip-text text-transparent ">
           <div className="flex w-48 flex-row items-center justify-center">
-            <img
-              src="./logo.png"
-              alt=""
-            />
+            <img src="./logo.png" alt="" />
           </div>
           <h1> Channel Analyser</h1>
         </div>
         <form
           className="flex flex-col items-center w-full sm:px-10"
-          onSubmit={handleSubmit}
+          onSubmit={handleSearch}
         >
           <div className="hover:scale-[1.05] hover:shadow-md hover:shadow-white transition-all duration-300 border border-black  flex w-full  items-center p-3 rounded-full bg-[#fff5eebc]">
-            <button className="p-3 text-lg font-medium text-white  rounded-l-lg  ">
+            <button className="sm:p-3 text-lg font-medium text-white  rounded-l-lg  ">
               <span className="font-bold text-2xl text-black">@</span>
             </button>
             <input

@@ -12,11 +12,12 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<SearchBox />} />
-          <Route path="/profile" element={<ProfileCard />} />
-          <Route path="/top10videos" element={<VideoItem />} />
+          <Route path="/profile/:channelName" element={<ProfileCard />} />
+          <Route path="/:channelName/top10videos/:uploadId" element={<VideoItem />} />
         </Routes>
         <ToastContainer />
       </Router>
+      <Footer />
     </div>
   );
 }

@@ -35,6 +35,7 @@ def get_channel_stats(youtube, channel_id):
             id = channel_id)
         response = request.execute()
         data = dict(Channel_Name = response['items'][0]['snippet']['title'],
+                    Channel_id = channel_id,
                     Description = response['items'][0]['snippet']['description'],
                Subscribers = response['items'][0]['statistics']['subscriberCount'],
                Videos = response['items'][0]['statistics']['videoCount'],

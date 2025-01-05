@@ -8,8 +8,8 @@ export default {
       },
       colors: {
         customGradient: {
-          start: "#FF0000", // Classic YouTube red (strong, attention-grabbing)
-          middle: "#FFAAAA", // Lighter red (smooth transition)
+          start: "#FF0000",
+          middle: "#FFAAAA",
           end: "#282828",
         },
         grey: "rgba(245,245,247,1)",
